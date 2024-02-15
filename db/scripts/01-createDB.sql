@@ -15,6 +15,7 @@ CREATE TABLE "Projects" (
     "Id"  SERIAL  NOT NULL,
     "Name" varchar(20)   NOT NULL,
     "Description" varchar(200)   NOT NULL,
+    "Active" boolean   NOT NULL,
     "IdUser" int   NOT NULL,
     CONSTRAINT "pk_Projects" PRIMARY KEY (
         "Id"
@@ -27,6 +28,7 @@ CREATE TABLE "Tasks" (
     "Description" varchar(200)   NOT NULL,
     "DueDate" date   NOT NULL,
     "Status" int   NOT NULL,
+    "Priority" int   NOT NULL,
     "IdProject" int   NOT NULL,
     CONSTRAINT "pk_Tasks" PRIMARY KEY (
         "Id"
@@ -36,6 +38,7 @@ CREATE TABLE "Tasks" (
 CREATE TABLE "Comments" (
     "Id"  SERIAL  NOT NULL,
     "Text" varchar(250)   NOT NULL,
+    "Date" date NOT NULL,
     "IdTask" int   NOT NULL,
     "IdUser" int   NOT NULL,
     CONSTRAINT "pk_Comments" PRIMARY KEY (
@@ -70,3 +73,4 @@ REFERENCES "Users" ("Id");
 
 ALTER TABLE "Logs" ADD CONSTRAINT "fk_Logs_IdTask" FOREIGN KEY("IdTask")
 REFERENCES "Tasks" ("Id");
+

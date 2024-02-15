@@ -74,6 +74,7 @@ namespace EclipseWorksApp.API.Controllers
         }
 
         [HttpDelete]
+        [Route("/{idTask}")]
         public async Task<IResult> Delete([FromHeader(Name = "User-Logged")] int idUserLogged,
                                           int idProject,
                                           int idTask,

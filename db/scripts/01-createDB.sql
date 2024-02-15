@@ -45,6 +45,7 @@ CREATE TABLE "Comments" (
 
 CREATE TABLE "Logs" (
     "Id"  SERIAL  NOT NULL,
+    "Date" date   NOT NULL,
     "Field" varchar(50)   NOT NULL,
     "OldValue" varchar(250)   NOT NULL,
     "NewValue" varchar(250)   NOT NULL,

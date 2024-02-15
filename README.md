@@ -6,7 +6,7 @@ _**O Desafio foi dividido em 3 fases, abaixo apresento e explico as minhas decis
 ## Fase 1 - API Coding
 A fase 1 do desafio diz respeito a implementação de uma API Rest de um sistema de controle de projetos e as tarefas relcionadas.
 
-A descrição do desafio com o que era proposto e espera se encontra [aqui](https://meteor-ocelot-f0d.notion.site/NET-C-5281edbec2e4480d98552e5ca0242c5b). Por não saber se o documento ficaria sempre disponível, fiz uma cópia local nesse projeto, está [aqui](Adicionar Link depois).
+A descrição do desafio com o que era proposto e espera se encontra [aqui](https://meteor-ocelot-f0d.notion.site/NET-C-5281edbec2e4480d98552e5ca0242c5b). Por não saber se o documento ficaria sempre disponível, fiz uma cópia local nesse projeto, está [aqui](https://github.com/alexsandre/eclipseWorksApp/blob/main/Docs/DesafioTecnico.md).
 
 ### Como executar o projeto?
 
@@ -17,6 +17,9 @@ O projeto está configurado para rodar com o docker/compose. Portanto, o comando
 docker compose up
  
 ```
+
+Após o comando ser executado com sucesso, a API estará rodando no endereço [http://localhost:8080](http://localhost:8080). Eu permitir o swagger rodar mesmo em ambiente de produção, para facilitar ver os endpoints, ele estará rodando no endereço: [http://localhost:8080/swagger](http://localhost:8080/swagger)
+
 
 ### Como está estruturado o projeto?
 Para desenvolver o projeto utilizei o .NET 8.0, além de:

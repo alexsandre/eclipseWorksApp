@@ -22,8 +22,8 @@ public class DeleteProjectService
         if (await projectHasOpenTasks(idProject))
             throw new DomainException(Strings.DeleteProjectFailed);
 
-
-        await _portfolioManagement.DeleteProject(project);
+        project.Disable();
+        await _portfolioManagement.SaveAsync();
     }
 
     private async Task<bool> projectHasOpenTasks(int idProject)

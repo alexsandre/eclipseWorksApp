@@ -13,10 +13,12 @@ public class Project : EntityBase
         Name = name;
         Description = description;
         User = user;
+        Active = true;
     }
 
     public string Name { get; }
     public string Description { get; }
+    public bool Active { get; set; }
 
     public int IdUser { get; private set; }
     public User User { get; }
@@ -30,4 +32,6 @@ public class Project : EntityBase
 
         Tasks.Add(task);
     }
+
+    public void Disable() => Active = false;
 }

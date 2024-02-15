@@ -1,5 +1,6 @@
 ﻿using EclipseWorksApp.API.Application.Commands.CreateTask;
 using EclipseWorksApp.API.Exceptions;
+using EclipseWorksApp.Domain.Consts;
 using EclipseWorksApp.Domain.Entities;
 using EclipseWorksApp.Infra.DBContext;
 using MediatR;
@@ -24,11 +25,11 @@ public class UpdateTaskHandler : IRequestHandler<UpdateTaskCommand, UpdateTaskRe
 
         var project = await GetProject(request.IdProject, request.IdUserLogged);
         if (project is null)
-            throw new NotFoundException("Project not found");
+            throw new NotFoundException(Strings.ProjectNotFound);
 
         var task = await GetTask(request.IdTask);
         if (task is null)
-            throw new NotFoundException("Task Not Found");
+            throw new NotFoundException(Strings.TaskNotFound);
 
         task.SetTitle(request.Title, userLogged)
             .SetDescription(request.Description, userLogged)

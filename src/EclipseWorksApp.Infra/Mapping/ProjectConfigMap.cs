@@ -13,11 +13,14 @@ internal class ProjectConfigMap : EntityBaseConfigMap<Project>
 
         builder.Property(e => e.Name);
         builder.Property(e => e.Description);
+        builder.Property(e => e.Active);
 
         builder
             .HasMany(p => p.Tasks)
             .WithOne(t => t.Project)
             .HasForeignKey(t => t.IdProject)
             .HasPrincipalKey(p => p.Id);
+
+        builder.HasQueryFilter(p => p.Active);
     }
 }

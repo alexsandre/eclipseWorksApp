@@ -27,9 +27,8 @@ public class EclipseWorksAppDbContext : DbContext, IPortfolioManagement
         return await Set<Domain.Entities.Task>().Where(t => t.IdProject == idProject).ToListAsync();
     }
 
-    public async System.Threading.Tasks.Task DeleteProject(Project project)
+    public async System.Threading.Tasks.Task SaveAsync()
     {
-        Remove(project);
         await SaveChangesAsync();
     }
 }

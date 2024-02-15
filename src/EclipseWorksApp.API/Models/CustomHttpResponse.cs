@@ -2,10 +2,13 @@
 
 public class CustomHttpResponse
 {
+    public CustomHttpResponse() { }
+    
     public CustomHttpResponse(object data)
     {
         Data = data;
     }
+
     public CustomHttpResponse(object data, string message) : this(data)
     {
         Messages.Add(message);

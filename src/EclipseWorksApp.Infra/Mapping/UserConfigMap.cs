@@ -21,5 +21,11 @@ internal class UserConfigMap : EntityBaseConfigMap<User>
             .WithOne(p => p.User)
             .HasForeignKey(p => p.IdUser)
             .HasPrincipalKey(u => u.Id);
+
+        builder
+            .HasMany(u => u.Comments)
+            .WithOne(c => c.User)
+            .HasForeignKey(c => c.IdUser)
+            .HasPrincipalKey(u => u.Id);
     }
 }

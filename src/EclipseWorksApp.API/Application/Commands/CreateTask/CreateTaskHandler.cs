@@ -1,4 +1,5 @@
 ﻿using EclipseWorksApp.API.Exceptions;
+using EclipseWorksApp.Domain.Consts;
 using EclipseWorksApp.Domain.Entities;
 using EclipseWorksApp.Infra.DBContext;
 using MediatR;
@@ -23,9 +24,9 @@ public class CreateTaskHandler : IRequestHandler<CreateTaskCommand, CreateTaskRe
 
         var project = await GetProject(request.IdProject, request.IdUserLogged);
         if (project is null)
-            throw new NotFoundException("Projeto não encontrado.");
+            throw new NotFoundException(Strings.ProjectNotFound);
 
-        var task = new Entities.Task(request.Title, request.Description, request.DueDate, (Status)request.Status, project);
+        var task = new Entities.Task(request.Title, request.Description, request.DueDate, (Status)request.Status, (Priority)request.Priority, project);
         project.AddTask(task);
 
         await _dbContext.SaveChangesAsync();

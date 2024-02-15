@@ -2,6 +2,7 @@
 using EclipseWorksApp.API.Application.Queries.GetAllTasksByProject;
 using EclipseWorksApp.API.Application.Queries.GetReportPerformance;
 using EclipseWorksApp.Domain.Interfaces;
+using EclipseWorksApp.Domain.Services;
 using EclipseWorksApp.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -25,5 +26,7 @@ public static class CustomInjection
             .AddDbContext<EclipseWorksAppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DbContext")));
 
         services.AddScoped<IPortfolioManagement, EclipseWorksAppDbContext>();
+        
+        services.AddScoped<DeleteProjectService, DeleteProjectService>();
     }
 }

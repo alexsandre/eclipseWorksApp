@@ -8,12 +8,14 @@ public class Task : EntityBase
         string description,
         DateTime dueDate,
         Status status,
+        Priority priority,
         Project project)
     {
         _title = title;
         _description = description;
         _dueDate = dueDate;
         _status = status;
+        Priority = priority;
         Project = project;
     }
 
@@ -67,6 +69,8 @@ public class Task : EntityBase
         _status = value.Value;
         return this;
     }
+
+    public Priority Priority { get; }
 
     public int IdProject { get; protected set; }
     public Project Project { get; }

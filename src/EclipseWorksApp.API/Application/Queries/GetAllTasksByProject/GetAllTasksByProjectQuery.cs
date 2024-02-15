@@ -1,6 +1,7 @@
 ﻿using EclipseWorksApp.Domain.Entities;
 using EclipseWorksApp.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using pTask = EclipseWorksApp.Domain.Entities.Task;
 
 namespace EclipseWorksApp.API.Application.Queries.GetAllTasksByProject;
@@ -19,8 +20,11 @@ public class GetAllTasksByProjectQuery : IGetAllTasksByProjectQuery
         if (user is null)
             throw new UnauthorizedAccessException();
 
-        var tasks = await _dbContext.Table<pTask>()
+        var tasks = await _dbContext
+            .Table<pTask>()
             .Where(t => t.IdProject == idProject && t.Project.IdUser == idUser)
+            .Include(t => t.Logs)
+            .Include(t => t.Comments)
             .AsNoTracking()
             .ToListAsync();
 
@@ -29,7 +33,9 @@ public class GetAllTasksByProjectQuery : IGetAllTasksByProjectQuery
                                                        t.Title,
                                                        t.Description,
                                                        t.DueDate,
-                                                       (int)t.Status));
+                                                       (int)t.Status,
+                                                       t.Logs.Select(l => new TaskItemLogModel(l)).ToList(),
+                                                       t.Comments.Select(c => new TaskItemCommentModel(c)).ToList()));
     }
 
     private Task<User?> GetUser(int idUser) => _dbContext.Table<User>().FirstOrDefaultAsync(u => u.Id == idUser);

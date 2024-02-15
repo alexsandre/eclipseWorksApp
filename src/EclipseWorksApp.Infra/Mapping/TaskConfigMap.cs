@@ -1,4 +1,5 @@
 ﻿using EclipseWorksApp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Task = EclipseWorksApp.Domain.Entities.Task;
 
@@ -17,18 +18,21 @@ namespace EclipseWorksApp.Infra.Mapping
             builder.Property(t => t.Description).HasField("_description");
             builder.Property(t => t.DueDate).HasField("_dueDate");
             builder.Property(t => t.Status).HasConversion<int>().HasField("_status");
+            builder.Property(t => t.Priority).HasConversion<int>();
 
             builder
                 .HasMany(t => t.Logs)
                 .WithOne(l => l.Task)
                 .HasForeignKey(l => l.IdTask)
-                .HasPrincipalKey(t => t.Id);
+                .HasPrincipalKey(t => t.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(t => t.Comments)
                 .WithOne(c => c.Task)
                 .HasForeignKey(c => c.IdTask)
-                .HasPrincipalKey(t => t.Id);
+                .HasPrincipalKey(t => t.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

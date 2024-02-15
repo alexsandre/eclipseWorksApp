@@ -2,7 +2,7 @@
 
 namespace EclipseWorksApp.API.Application.Commands.DeleteTask
 {
-    public class DeleteTaskCommand : IRequest<object>
+    public class DeleteTaskCommand : IRequest
     {
         public int IdUserLogged { get; set; }
         public int IdProject { get; set; }

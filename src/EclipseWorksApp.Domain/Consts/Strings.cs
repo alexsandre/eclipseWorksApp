@@ -13,5 +13,9 @@ namespace EclipseWorksApp.Domain.Consts
         public const string TaskNotFound = "Task Not Found";
 
         public const string NumberOfTasksExceeded = "A project can only have 20 tasks";
+
+
+
+        public const string DeleteProjectFailed = "Project deletion not allowed. You must first remove or finish all open tasks.";
     }
 }

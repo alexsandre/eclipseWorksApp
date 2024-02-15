@@ -27,7 +27,7 @@ public class Task : EntityBase
         if (string.IsNullOrEmpty(value) || value == _title)
             return this;
 
-        registerLog(DateTime.Now, "Title", _title, value, user.Name);
+        registerLog(DateTime.UtcNow, "Title", _title, value, user.Name);
         _title = value;
         return this;
     }
@@ -39,7 +39,7 @@ public class Task : EntityBase
         if (string.IsNullOrEmpty(value) || value == _description)
             return this;
 
-        registerLog(DateTime.Now, "Description", _description, value, user.Name);
+        registerLog(DateTime.UtcNow, "Description", _description, value, user.Name);
         _description= value;
         return this;
     }
@@ -51,7 +51,7 @@ public class Task : EntityBase
         if (value is  null || value == _dueDate)
             return this;
 
-        registerLog(DateTime.Now, "Due Date", string.Format("{0:u}", _dueDate), string.Format("{0:u}", value.Value), user.Name);
+        registerLog(DateTime.UtcNow, "Due Date", string.Format("{0:u}", _dueDate), string.Format("{0:u}", value.Value), user.Name);
         _dueDate = value.Value;
         return this;
     }
@@ -63,7 +63,7 @@ public class Task : EntityBase
         if (value is null || value == _status)
             return this;
 
-        registerLog(DateTime.Now, "Status", _status.ToString("D"), value.Value.ToString("D"), user.Name);
+        registerLog(DateTime.UtcNow, "Status", _status.ToString("D"), value.Value.ToString("D"), user.Name);
         _status = value.Value;
         return this;
     }
@@ -77,7 +77,7 @@ public class Task : EntityBase
     public void AddComment(Comment comment, User user)
     {
         Comments.Add(comment);
-        registerLog(DateTime.Now, "Comments", string.Empty, comment.Text, user.Name);
+        registerLog(DateTime.UtcNow, "Comments", string.Empty, comment.Text, user.Name);
     }
 
     private void registerLog(DateTime date, string field, string oldValue, string newValue, string nameUser)

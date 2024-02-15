@@ -43,5 +43,5 @@ public class CreateTaskHandler : IRequestHandler<CreateTaskCommand, CreateTaskRe
         _dbContext.Table<User>().FirstOrDefaultAsync(u => u.Id == id);
 
     public Task<Project?> GetProject(int idProject, int idUser) =>
-        _dbContext.Table<Project>().FirstOrDefaultAsync(p => p.Id == idProject && p.IdUser == idUser);
+        _dbContext.Table<Project>().Include(p => p.Tasks).FirstOrDefaultAsync(p => p.Id == idProject && p.IdUser == idUser);
 }

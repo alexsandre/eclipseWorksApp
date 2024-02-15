@@ -21,6 +21,7 @@ public class GetAllProjectsQuery : IGetAllProjectsQuery
         var allProjects = await _dbContext
             .Table<Project>()
             .Where(p => p.IdUser == user.Id)
+            .Include(p => p.User)
             .AsNoTracking()
             .ToListAsync();
 

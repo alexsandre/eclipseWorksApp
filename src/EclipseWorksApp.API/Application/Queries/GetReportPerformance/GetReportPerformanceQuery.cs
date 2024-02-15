@@ -19,7 +19,7 @@ public class GetReportPerformanceQuery : IGetReportPerformanceQuery
         if (user is null || !user.Profile.Equals(Profile.Manager))
             throw new UnauthorizedAccessException();
 
-        var dateStart = DateTime.Now.AddDays(-30);
+        var dateStart = DateTime.UtcNow.AddDays(-30);
         var nameField = "Status";
         var valueFinished = (int)Status.Finished;
 

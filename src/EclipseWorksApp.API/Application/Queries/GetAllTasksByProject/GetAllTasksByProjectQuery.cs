@@ -3,6 +3,7 @@ using EclipseWorksApp.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using pTask = EclipseWorksApp.Domain.Entities.Task;
+using EclipseWorksApp.API.Exceptions;
 
 namespace EclipseWorksApp.API.Application.Queries.GetAllTasksByProject;
 
@@ -18,7 +19,7 @@ public class GetAllTasksByProjectQuery : IGetAllTasksByProjectQuery
     {
         var user = await GetUser(idUser);
         if (user is null)
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedException();
 
         var tasks = await _dbContext
             .Table<pTask>()

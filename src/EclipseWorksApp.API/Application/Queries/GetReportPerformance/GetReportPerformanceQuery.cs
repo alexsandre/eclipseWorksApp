@@ -2,6 +2,7 @@
 using EclipseWorksApp.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
 using pTask = EclipseWorksApp.Domain.Entities.Task;
+using EclipseWorksApp.API.Exceptions;
 
 namespace EclipseWorksApp.API.Application.Queries.GetReportPerformance;
 
@@ -17,7 +18,7 @@ public class GetReportPerformanceQuery : IGetReportPerformanceQuery
     {
         var user = await GetUser(idUserLogged);
         if (user is null || !user.Profile.Equals(Profile.Manager))
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedException();
 
         var dateStart = DateTime.UtcNow.AddDays(-30);
         var nameField = "Status";

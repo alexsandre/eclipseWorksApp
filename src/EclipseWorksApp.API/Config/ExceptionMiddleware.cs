@@ -39,8 +39,8 @@ namespace EclipseWorksApp.API.Config
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
 
-            var response = new CustomHttpResponse(message);
-            var responseJson = JsonSerializer.Serialize(this);
+            var response = new CustomHttpResponse(null, message);
+            var responseJson = JsonSerializer.Serialize(response);
             
             await context.Response.WriteAsync(responseJson);
         }

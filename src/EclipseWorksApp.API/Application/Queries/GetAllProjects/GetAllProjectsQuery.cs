@@ -1,6 +1,7 @@
 ﻿using EclipseWorksApp.Domain.Entities;
 using EclipseWorksApp.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
+using EclipseWorksApp.API.Exceptions;
 
 namespace EclipseWorksApp.API.Application.Queries.GetAllProjects;
 
@@ -16,7 +17,7 @@ public class GetAllProjectsQuery : IGetAllProjectsQuery
     {
         var user = await GetUser(idUser);
         if (user is null)
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedException();
 
         var allProjects = await _dbContext
             .Table<Project>()

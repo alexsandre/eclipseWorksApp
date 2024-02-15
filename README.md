@@ -1,7 +1,10 @@
 # Projeto
 Esse é o código-fonte do Desafio Técnico proposto pela Eclipse Works como uma etapa de um processo seletivo.
  
-_**O Desafio foi dividido em 3 fases, abaixo apresento e explico as minhas decisões referentes a Fase 1 - API Coding**_
+_**O Desafio foi dividido em 3 fases, que são:**_
+1. _**Api Coding**_ - Implementar uma api conforme o requisitos informados.
+2. _**Refinamento**_ - Indicar itens que eu perguntaria ao PO do projeto visando o refinamento para futuras implementações ou melhorias.
+3. _**Final**_ - Escrever o que eu melhoraria no projeto, identificando pontos de melhorias, implementações de padrões e outras visões sobre arquitetura.
 
 ## Fase 1 - API Coding
 A fase 1 do desafio diz respeito a implementação de uma API Rest de um sistema de controle de projetos e as tarefas relcionadas.
@@ -103,4 +106,4 @@ Para a parte final do Desafio, sobre o que eu melhoria no projeto tenho os segui
 * Acredito também que a separação dos endpoints em projetos menores pode permitir uma maior manutenibilidade no futuro. Além de proporcionar uma separação maior em futuros deploys e em caso de necessitar escalar a aplicação, podendo aumentar a disponibilidade somente de uma parte e não da aplicação todo.
 
 
-* Um ponto que a separação de responsabilidades de leitura e escrita ajudariam é, no caso de aumento da aplicação, fazer a migração para uma arquitetura baseada em eventos assíncronos, de consistência eventual. Podemos enviar os commands para uma fila e processa assincronamente, sem fazer o usuário esperar resposta do servidor. Tornando sua experiência mais fluída. 
+* Um ponto que a separação de responsabilidades de leitura e escrita ajudariam é, no caso de aumento da aplicação, fazer a migração para uma arquitetura baseada em eventos assíncronos, de consistência eventual. Podemos enviar os commands para uma fila e processa assincronamente, sem fazer o usuário esperar resposta do servidor. Tornando sua experiência mais fluída.

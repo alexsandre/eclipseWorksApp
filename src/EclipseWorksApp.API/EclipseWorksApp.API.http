@@ -1,6 +1,14 @@
-@EclipseWorksApp.API_HostAddress = http://localhost:5020
+@EclipseWorksApp.API_HostAddress = http://localhost:8080
 
 GET {{EclipseWorksApp.API_HostAddress}}/weatherforecast/
 Accept: application/json
-
 ###
+
+GET {{EclipseWorksApp.API_HostAddress}}/api/projects
+Accept: application/json
+User-Logged: 1
+###
+
+GET {{EclipseWorksApp.API_HostAddress}}/api/projects/1/tasks
+Accept: application/json
+User-Logged: 1

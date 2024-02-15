@@ -11,8 +11,9 @@ namespace EclipseWorksApp.API.Controllers
     public class ReportsController : ControllerBase
     {
         [HttpGet]
-        public async Task<IResult> Get([FromHeader(Name = "User-Logged")] int idUserLogged,
-                                       IGetReportPerformanceQuery query)
+        [Route("/Performance")]
+        public async Task<IResult> GetPerformance([FromHeader(Name = "User-Logged")] int idUserLogged,
+                                                  IGetReportPerformanceQuery query)
         {
             var data = await query.RunAsync(idUserLogged);
 

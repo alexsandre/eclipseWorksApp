@@ -42,7 +42,7 @@ namespace EclipseWorksApp.API.Controllers
         }
 
         [HttpPost]
-        [Route("/{idTask}/Comments")]
+        [Route("{idTask}/Comments")]
         public async Task<IResult> PostComment([FromHeader(Name = "User-Logged")] int idUserLogged,
                                         int idProject,
                                         int idTask,
@@ -58,6 +58,7 @@ namespace EclipseWorksApp.API.Controllers
         }
 
         [HttpPatch]
+        [Route("{idTask}")]
         public async Task<IResult> Patch([FromHeader(Name = "User-Logged")] int idUserLogged,
                                          int idProject,
                                          int idTask,
@@ -74,7 +75,7 @@ namespace EclipseWorksApp.API.Controllers
         }
 
         [HttpDelete]
-        [Route("/{idTask}")]
+        [Route("{idTask}")]
         public async Task<IResult> Delete([FromHeader(Name = "User-Logged")] int idUserLogged,
                                           int idProject,
                                           int idTask,

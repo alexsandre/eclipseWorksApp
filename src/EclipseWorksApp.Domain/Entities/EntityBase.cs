@@ -7,5 +7,5 @@ public abstract class EntityBase
         Id = 0;
     }
 
-    public virtual long Id { get; internal set; }
+    public virtual int Id { get; internal set; }
 }

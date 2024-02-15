@@ -1,8 +1,13 @@
-using EclipseWorksApp.API.Commands.CreateProject;
+using EclipseWorksApp.API.Application.Commands.CreateProject;
+using EclipseWorksApp.API.Application.Commands.CreateTask;
+using EclipseWorksApp.API.Application.Commands.DeleteTask;
+using EclipseWorksApp.API.Application.Commands.UpdateTask;
+using EclipseWorksApp.API.Application.Queries.GetAllProjects;
+using EclipseWorksApp.API.Application.Queries.GetAllTasksByProject;
+using EclipseWorksApp.API.Application.Queries.GetReportPerformance;
 using EclipseWorksApp.API.Config;
-using EclipseWorksApp.API.Queries.GetAllProjects;
+using EclipseWorksApp.API.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCustomInjection();
+builder.Services.AddCustomInjection(builder.Configuration);
 
 var app = builder.Build();
 
@@ -25,58 +30,109 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("v1/projects", (IGetAllProjectsQuery query) =>
+app.MapGet("v1/projects",
+    async (HttpContext context, [FromHeader(Name = "User-Logged")] int idUserLogged,
+           IGetAllProjectsQuery query) =>
 {
-    return Results.Ok();
+    var data = await query.RunAsync(idUserLogged);
+    
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("GetProjects")
 .WithOpenApi();
 
-app.MapPost("v1/projects", ([FromBody]CreateProjectCommand command, IMediator mediator) =>
+app.MapPost("v1/projects",
+    async (HttpContext context, [FromHeader(Name = "User-Logged")] int idUserLogged,
+           [FromBody]CreateProjectCommand command,
+           IMediator mediator) =>
 {
-    return Results.Ok();
+    command.IdUserLogged = idUserLogged;
+    var data = await mediator.Send(command);
+    
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("PostProject")
 .WithOpenApi();
 
-app.MapGet("v1/projects/{idProject}/tasks", (int idProject) =>
+app.MapGet("v1/projects/{idProject}/tasks",
+    async (HttpContext context,
+           [FromHeader(Name = "User-Logged")] int idUserLogged,
+           int idProject,
+           IGetAllTasksByProjectQuery query) =>
 {
-    return Results.Ok();
+    var data = await query.RunAsync(idUserLogged, idProject);
+
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("GetTasksByProject")
 .WithOpenApi();
 
-app.MapPost("v1/projects/{idProject}/tasks", (int idProject) =>
+app.MapPost("v1/projects/{idProject}/tasks",
+    async (HttpContext context,
+           [FromHeader(Name = "User-Logged")] int idUserLogged,
+           int idProject,
+           [FromBody] CreateTaskCommand command,
+           IMediator mediator) =>
 {
-    return Results.Ok();
+    command.IdUserLogged = idUserLogged;
+    command.IdProject = idProject;
+    var data = await mediator.Send(command);
+
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("PostTask")
 .WithOpenApi();
 
-app.MapPatch("v1/projects/{idProject}/tasks/{idTask}", (int idProject, int idTask) =>
+app.MapPatch("v1/projects/{idProject}/tasks/{idTask}",
+    async (HttpContext context,
+           [FromHeader(Name = "User-Logged")] int idUserLogged,
+           int idProject,
+           int idTask,
+           [FromBody]UpdateTaskCommand command,
+           IMediator mediator) =>
 {
-    return Results.Ok();
+    command.IdUserLogged = idUserLogged;
+    command.IdProject = idProject;
+    command.IdTask = idTask;
+
+    var data = await mediator.Send(command);
+
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("PatchTask")
 .WithOpenApi();
 
-app.MapDelete("v1/projects/{idProject}/tasks/{idTask}", (int idProject, int idTask) =>
+app.MapDelete("v1/projects/{idProject}/tasks/{idTask}",
+    async (HttpContext context, [FromHeader(Name = "User-Logged")] int idUserLogged,
+           int idProject,
+           int idTask,
+           IMediator mediator) =>
 {
-    return Results.Ok();
+    var command = new DeleteTaskCommand() { IdUserLogged = idUserLogged, IdProject = idProject, IdTask = idTask };
+    var data = await mediator.Send(command);
+
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("DeleteTask")
 .WithOpenApi();
 
-app.MapPost("v1/projects/{idProject}/tasks/{idTask}/comments", (int idProject, int idTask) =>
+app.MapPost("v1/projects/{idProject}/tasks/{idTask}/comments",
+    async (HttpContext context, [FromHeader(Name = "User-Logged")] int idUserLogged,
+           int idProject,
+           int idTask) =>
 {
     return Results.Ok();
 })
 .WithName("PostCommentInTask")
 .WithOpenApi();
 
-app.MapGet("v1/reports/performance", () =>
+app.MapGet("v1/reports/performance",
+    async (HttpContext context, [FromHeader(Name = "User-Logged")] int idUserLogged,
+           IGetReportPerformanceQuery query) =>
 {
-    return Results.Ok();
+    var data = await query.RunAsync(idUserLogged);
+
+    return Results.Ok(new CustomHttpResponse(data));
 })
 .WithName("GetReportPerformance")
 .WithOpenApi();

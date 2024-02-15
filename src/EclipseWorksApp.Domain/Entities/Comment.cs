@@ -2,17 +2,24 @@
 
 public class Comment : EntityBase
 {
-    public Comment(
-        DateTime date,
-        User user,
-        string text)
+    private Comment() { }
+    public Comment(DateTime date,
+                   string text,
+                   User user,
+                   Task task)
     {
         Date = date;
-        User = user;
         Text = text;
+        User = user;
+        Task = task;
     }
 
     public DateTime Date { get; }
-    public User User { get; }
     public string Text { get; }
+
+    public int IdUser { get; private set; }
+    public User User { get; private set; }
+
+    public int IdTask { get; private set; }
+    public Task Task { get; private set; }
 }

@@ -4,16 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>127d3976-1814-4724-a5d3-77803b91a479</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EclipseWorksApp.Domain\EclipseWorksApp.Domain.csproj" />
+    <ProjectReference Include="..\EclipseWorksApp.Infra\EclipseWorksApp.Infra.csproj" />
   </ItemGroup>
 
 </Project>

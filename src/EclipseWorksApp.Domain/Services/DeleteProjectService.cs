@@ -34,6 +34,4 @@ public class DeleteProjectService
     }
 
     private async Task<Project?> GetProject(int idProject, int idUser) => await _portfolioManagement.GetProjectByUser(idProject, idUser);
-
-
 }
